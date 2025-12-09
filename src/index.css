@@ -1,3 +1,175 @@
+/* ===========================
+   Global variables
+=========================== */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", sans-serif;
+
+  /* Colors */
+  --color-bg-card: #e9e7e7;
+  --color-border: #000000;
+  --color-pink: rgb(248, 165, 165);
+  --color-text-main: #333333;
+  --color-text-muted: grey;
+
+  /* Layout & sizing */
+  --max-width-card: 400px;
+  --shadow-card: 10px 10px 0 #000000;
+  --radius-pill: 50px;
+}
+
+/* ===========================
+   Form / Input section
+=========================== */
+.form-container {
+  background-color: var(--color-bg-card);
+  padding: 20px;
+  margin: 70px auto;
+  max-width: var(--max-width-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container h2 {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 10px 0;
+}
+
+.form-container textarea {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  border: 1px solid rgb(175, 175, 175);
+  resize: none;
+  padding: 10px 10px;
+  box-sizing: border-box;
+}
+
+.form-container button {
+  background-color: var(--color-pink);
+  padding: 10px 10px;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 16px;
+  cursor: pointer;
+}
+.form-container button:hover {
+  transform: scale(1.03);
+}
+
+/* ===========================
+   Thought cards & list
+=========================== */
+.thought-card {
+  padding: 12px 23px;
+  margin: 70px auto;
+  max-width: var(--max-width-card);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: slideIn 0.7s ease-out;
+}
+
+.thoughts-list p {
+  font-family: var(--font-family-main);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--color-text-main);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   Like button row
+=========================== */
+.like-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.like-button {
+  border-radius: 100%;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+}
+.like-button:hover {
+  transform: scale(1.03);
+}
+
+.like-button.clicked {
+  background-color: rgb(248, 165, 165); /* ny färg efter klick */
+}
+
+.like-count {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  padding: 10px;
+}
+
+.time-ago {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ===========================
+   Loading text & spinner
+=========================== */
+.loading {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+
+#loader {
+  width: 50px;
+  height: 50px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
