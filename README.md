@@ -1,40 +1,46 @@
-# Happy Thoughts
+Happy Thoughts – React Project (Technigo)
 
+A React-based “Happy Thoughts” application built as part of a Technigo assignment. The app allows users to post uplifting messages and send hearts (likes) to others’ thoughts. All data is stored and fetched from a shared public API.
 
-main.jsx
-Startar hela React-appen, kopplar den till HTML-filen och renderar <App />. Laddar även global CSS.
-Som husets ytterdörr och elcentral.
+Features:
 
-App.jsx
-Huvudkomponenten där all övergripande state finns. Bestämmer vilka komponenter som ska visas och skickar data med props.
-Som själva huset där alla möbler placeras.
+Post new happy thoughts (5–140 characters)
+Fetch and display the 20 most recent thoughts
+Send likes to individual thoughts
+Real-time UI updates after submitting or liking a thought
+Loading states and error handling (optional stretch goals)
 
-ThoughtForm.jsx
-Komponent som hanterar formuläret. Innehåller validering, felmeddelanden och karaktärräknare.
-Som ett bord du skriver vid.
+What I Learned:
+How to use React component lifecycle and the useEffect hook
+Managing state and controlled forms in React
+Integrating a frontend with an external REST API
+Handling POST requests and updating the UI based on API responses
+Working with tools like Postman for testing endpoints
 
-ThoughtCard.jsx
-Komponent som visar varje tanke och håller likes-state.
-Som en poster på väggen.
+API Endpoints:
 
-constants.js
-Fil som innehåller återanvändbara värden som längdgränser och felmeddelanden.
-Som ett förråd med mått och material.
+Get recent thoughts:
+GET https://happy-thoughts-api-4ful.onrender.com/thoughts
 
-index.css
-Global styling som gäller för hela appen.
-Som husets väggfärg och grundstil.
+Post a new thought:
+POST https://happy-thoughts-api-4ful.onrender.com/thoughts
 
-🔄 Dataflöde
+Like a thought:
+POST https://happy-thoughts-api-4ful.onrender.com/thoughts/:THOUGHT_ID/like
 
-Användaren skriver i formuläret → setThought() uppdaterar texten i App.jsx
+Technologies Used:
+-React
+-JavaScript
+-Fetch API
+-CSS/Tailwind/Styled Components (anpassa beroende på vad du använde)
 
-ThoughtForm validerar texten
+Installation:
+-Clone the project and install dependencies:
+-git clone <your-repo-url>
+-cd happy-thoughts
+-npm install
+-npm start
 
-App.jsx lägger till en ny tanke i listan
+🙌 Credits
 
-Listan renderas genom .map()
-
-Varje tanke skickas till en <ThoughtCard />
-
-ThoughtCard visar text och har eget likes-state
+This project was created as part of the Technigo Frontend Bootcamp.
