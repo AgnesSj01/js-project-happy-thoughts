@@ -1,6 +1,5 @@
 # Happy Thoughts
 
-Projektstruktur (förklaring)
 
 main.jsx
 Startar hela React-appen, kopplar den till HTML-filen och renderar <App />. Laddar även global CSS.
