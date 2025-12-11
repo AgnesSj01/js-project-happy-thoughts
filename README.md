@@ -40,7 +40,5 @@ Installation:
 -npm install
 -npm start
 
-🙌 Credits
->>>>>>> b17659263a377301284d731cc1e7cc5ebbd257af
 
 This project was created as part of the Technigo Frontend Bootcamp.
