@@ -11,6 +11,7 @@ import { ThoughtForm } from "./components/form";
 import { LoadingSpinner } from "./components/LoadingSpinner";
 import { ThoughtList } from "./components/ThoughtList";
 import { AuthForm } from "./components/AuthForm";
+import { RandomThought } from "./components/RandomThought";
 
 // Constants and API helper functions
 import {
@@ -30,6 +31,8 @@ export const App = () => {
   const [loading, setLoading] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [view, setView] = useState("all"); // "all" eller "random"
+  const [randomKey, setRandomKey] = useState(0); // För att trigga ny random thought
 
   // useEffect runs ONCE when the App mounts (because of the empty dependency array [])
   useEffect(() => {
@@ -123,18 +126,42 @@ export const App = () => {
             setThought={setThought}
             handleSubmit={handleSubmit}
           />
+        </>
+      ) : (
+        <AuthForm onSuccess={() => setIsLoggedIn(true)} />
+      )}
+
+      <div className="view-buttons">
+        <button
+          onClick={() => setView("all")}
+          className={view === "all" ? "active" : ""}
+        >
+          All Thoughts
+        </button>
+        <button
+          onClick={() => {
+            setView("random");
+            setRandomKey((prev) => prev + 1);
+          }}
+          className={view === "random" ? "active" : ""}
+        >
+          Random Thought
+        </button>
+      </div>
+
+      {view === "all" ? (
+        <>
           {loading && <LoadingSpinner />}
           <ThoughtList
             thoughts={thoughts}
             onLike={handleLike}
             onDelete={handleDelete}
             onEdit={handleEdit}
+            isLoggedIn={isLoggedIn}
           />
         </>
       ) : (
-        <>
-          <AuthForm onSuccess={() => setIsLoggedIn(true)} />
-        </>
+        <RandomThought key={randomKey} isLoggedIn={isLoggedIn} onLike={handleLike} />
       )}
     </main>
   );

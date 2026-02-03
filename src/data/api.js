@@ -32,7 +32,7 @@ export const postThought = async (message) => {
   return data;
 };
 
-//Uppdatera/Edit tanke
+//Edit thought
 export const editThought = async (id, newMessage) => {
   const token = localStorage.getItem("accessToken");
 
@@ -50,7 +50,6 @@ export const editThought = async (id, newMessage) => {
   return data;
 };
 
-// Ändrar så den kopplas till backend med method: PATCH
 export const likeThought = async (id) => {
   const token = localStorage.getItem("accessToken");
 
@@ -66,7 +65,7 @@ export const likeThought = async (id) => {
   const data = await res.json();
   return data;
 };
-//Lägger till en delete som kopplas till backend med metod "Deleete"
+//deleteThought
 export const deleteThought = async (id) => {
   const token = localStorage.getItem("accessToken");
 
@@ -80,4 +79,27 @@ export const deleteThought = async (id) => {
   }
 
   return true;
+};
+// GET: Fetch a random thought
+export const getRandomThought = async () => {
+  const res = await fetch(`${API_URL}/random`);
+
+  if (!res.ok) {
+    throw new Error("Could not fetch random thought");
+  }
+
+  const data = await res.json();
+  return data;
+};
+
+// GET: Fetch a specific thought by ID
+export const getThoughtById = async (id) => {
+  const res = await fetch(`${API_URL}/${id}`);
+
+  if (!res.ok) {
+    throw new Error("Could not fetch thought");
+  }
+
+  const data = await res.json();
+  return data;
 };

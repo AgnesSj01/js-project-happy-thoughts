@@ -11,7 +11,8 @@ export const ThoughtCard = ({
   hearts,
   onLike,
   onDelete,
-  onEdit, //La till
+  onEdit,
+  isLoggedIn,
 }) => {
   // Convert the given timestamp into a Day.js date object
   const created = dayjs(createdAt);
@@ -46,51 +47,52 @@ export const ThoughtCard = ({
       {/* Row with like button, heart count, and timestamp */}
       {!isEditing && (
         <div className="like-container">
-          {/* Heart button – calls onLike when clicked */}
-          <button className="like-button" onClick={onLike}>
-            ❤️
-          </button>
+          {/* Heart button – calls onLike when clicked (only for logged in users) */}
+          {isLoggedIn && (
+            <button className="like-button" onClick={onLike}>
+              ❤️
+            </button>
+          )}
 
           {/* Number of hearts */}
-          <span className="like-count">x {hearts}</span>
-          {/* Timestamp */}
-          {/* La till skräp*/}
+          <span className="like-count">{hearts} Likes</span>
 
           <span className="time-ago">{displayTime}</span>
         </div>
       )}
 
-      {isEditing ? (
-        <div className="edit-buttons">
-          <button
-            className="save-Button"
-            onClick={() => {
-              onEdit(editText);
-              setIsEditing(false);
-            }}
-          >
-            Save
-          </button>
-          <button
-            className="cancel-Button"
-            onClick={() => {
-              setEditText(message);
-              setIsEditing(false);
-            }}
-          >
-            Cancel
-          </button>
-        </div>
-      ) : (
-        <div className="action-buttons">
-          <button className="edit-Button" onClick={() => setIsEditing(true)}>
-            Edit
-          </button>
-          <button className="delete-button" onClick={onDelete}>
-            🗑️
-          </button>
-        </div>
-      )}
+      {isLoggedIn &&
+        (isEditing ? (
+          <div className="edit-buttons">
+            <button
+              className="save-Button"
+              onClick={() => {
+                onEdit(editText);
+                setIsEditing(false);
+              }}
+            >
+              Save
+            </button>
+            <button
+              className="cancel-Button"
+              onClick={() => {
+                setEditText(message);
+                setIsEditing(false);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        ) : (
+          <div className="action-buttons">
+            <button className="edit-Button" onClick={() => setIsEditing(true)}>
+              Edit
+            </button>
+            <button className="delete-button" onClick={onDelete}>
+              🗑️
+            </button>
+          </div>
+        ))}
     </article>
   );
 };

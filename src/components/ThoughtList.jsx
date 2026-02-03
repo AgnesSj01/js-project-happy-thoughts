@@ -3,7 +3,7 @@ import { ThoughtCard } from "./ThoughtCard";
 // ThoughtList receives two props:
 // - thoughts: an array of thought objects to display
 // - onLike: a function that handles liking a thought
-export const ThoughtList = ({ thoughts, onLike, onDelete, onEdit }) => {
+export const ThoughtList = ({ thoughts, onLike, onDelete, onEdit, isLoggedIn }) => {
   return (
     // Container for all the thought cards
     <section className="thoughts-list">
@@ -19,6 +19,7 @@ export const ThoughtList = ({ thoughts, onLike, onDelete, onEdit }) => {
           onLike={() => onLike(item._id)}
           onDelete={() => onDelete(item._id)}
           onEdit={(newMessage) => onEdit(item._id, newMessage)}
+          isLoggedIn={isLoggedIn}
         />
       ))}
     </section>

@@ -322,3 +322,54 @@
     transform: rotate(360deg);
   }
 }
+
+/* ===========================
+   View toggle buttons
+=========================== */
+.view-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.view-buttons button {
+  padding: 10px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background-color: var(--color-bg-card);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.view-buttons button:hover {
+  transform: scale(1.03);
+}
+
+.view-buttons button.active {
+  background-color: var(--color-pink);
+  font-weight: bold;
+}
+
+/* ===========================
+   Random thought section
+=========================== */
+.random-thought-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.random-button {
+  padding: 10px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background-color: var(--color-pink);
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.random-button:hover {
+  transform: scale(1.03);
+}
