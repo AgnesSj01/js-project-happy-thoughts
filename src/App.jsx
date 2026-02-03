@@ -10,9 +10,16 @@ import "./index.css";
 import { ThoughtForm } from "./components/form";
 import { LoadingSpinner } from "./components/LoadingSpinner";
 import { ThoughtList } from "./components/ThoughtList";
+import { AuthForm } from "./components/AuthForm";
 
 // Constants and API helper functions
-import { getThoughts, postThought, likeThought } from "./data/api";
+import {
+  getThoughts,
+  postThought,
+  likeThought,
+  deleteThought,
+  editThought, //la till
+} from "./data/api";
 
 export const App = () => {
   // State for the text inside the form input
@@ -21,6 +28,8 @@ export const App = () => {
   const [thoughts, setThoughts] = useState([]);
   // State for showing a loading spinner (true = loading)
   const [loading, setLoading] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // useEffect runs ONCE when the App mounts (because of the empty dependency array [])
   useEffect(() => {
@@ -39,6 +48,13 @@ export const App = () => {
     };
     // Run the function when the component mounts
     fetchThoughts();
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      setIsLoggedIn(true);
+    }
   }, []);
 
   // Handles form submission for creating a new thought
@@ -63,22 +79,63 @@ export const App = () => {
       // Update only the thought that was changed
       setThoughts((prevThoughts) =>
         prevThoughts.map((thought) =>
-          thought._id === updatedThought._id ? updatedThought : thought
-        )
+          thought._id === updatedThought._id ? updatedThought : thought,
+        ),
+      );
+    } catch (error) {}
+  };
+  //La till
+  const handleDelete = async (id) => {
+    try {
+      await deleteThought(id);
+      setThoughts((prevThoughts) =>
+        prevThoughts.filter((thought) => thought._id !== id),
       );
     } catch (error) {}
   };
 
+  const handleEdit = async (id, newMessage) => {
+    try {
+      const updatedThought = await editThought(id, newMessage);
+      // Update only the thought that was changed
+      setThoughts((prevThoughts) =>
+        prevThoughts.map((thought) =>
+          thought._id === updatedThought._id ? updatedThought : thought,
+        ),
+      );
+    } catch (error) {}
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setIsLoggedIn(false);
+  };
   // JSX returned by the App component – this is what appears on the page
   return (
     <main>
-      <ThoughtForm
-        thought={thought}
-        setThought={setThought}
-        handleSubmit={handleSubmit}
-      />
-      {loading && <LoadingSpinner />}
-      <ThoughtList thoughts={thoughts} onLike={handleLike} />
+      {isLoggedIn ? (
+        <>
+          <button className="logout-Button" onClick={handleLogout}>
+            Log out
+          </button>
+          <ThoughtForm
+            thought={thought}
+            setThought={setThought}
+            handleSubmit={handleSubmit}
+          />
+          {loading && <LoadingSpinner />}
+          <ThoughtList
+            thoughts={thoughts}
+            onLike={handleLike}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
+          />
+        </>
+      ) : (
+        <>
+          <AuthForm onSuccess={() => setIsLoggedIn(true)} />
+        </>
+      )}
     </main>
   );
 };
